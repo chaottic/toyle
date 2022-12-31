@@ -10,7 +10,9 @@ public interface ToyleTypes {
 
   IElementType PROPERTY = new ToyleElementType("PROPERTY");
 
-  IElementType COMMENT = new ToyleTokenType("COMMENT");
+  IElementType IDENTIFIER = new ToyleTokenType("IDENTIFIER");
+  IElementType LINE_COMMENT = new ToyleTokenType("LINE_COMMENT");
+  IElementType PACKAGE = new ToyleTokenType("PACKAGE");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {

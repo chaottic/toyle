@@ -9,6 +9,6 @@
     tokenTypeClass="com.chaottic.toyle.parser.ToyleTokenType"
 }
 
-file ::= COMMENT*
+file ::= PACKAGE IDENTIFIER LINE_COMMENT*
 
-property ::= COMMENT*
+property ::= LINE_COMMENT*

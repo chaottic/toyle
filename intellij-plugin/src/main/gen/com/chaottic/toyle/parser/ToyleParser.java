@@ -36,25 +36,37 @@ public class ToyleParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT*
+  // PACKAGE IDENTIFIER LINE_COMMENT*
   static boolean file(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file")) return false;
+    if (!nextTokenIs(b, PACKAGE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, PACKAGE, IDENTIFIER);
+    r = r && file_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_COMMENT*
+  private static boolean file_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, COMMENT)) break;
-      if (!empty_element_parsed_guard_(b, "file", c)) break;
+      if (!consumeToken(b, LINE_COMMENT)) break;
+      if (!empty_element_parsed_guard_(b, "file_2", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // COMMENT*
+  // LINE_COMMENT*
   public static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
     Marker m = enter_section_(b, l, _NONE_, PROPERTY, "<property>");
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, COMMENT)) break;
+      if (!consumeToken(b, LINE_COMMENT)) break;
       if (!empty_element_parsed_guard_(b, "property", c)) break;
     }
     exit_section_(b, l, m, true, false, null);

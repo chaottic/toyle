@@ -17,7 +17,9 @@ class ToylePlugin : Plugin<Project> {
 				filter.include("**/*.toyle")
 
 				it.extensions.add("toyle", this)
-				it.allSource.source(this)
+
+				// TODO: Not use allJava.
+				it.allJava.source(this)
 			}
 		}
 

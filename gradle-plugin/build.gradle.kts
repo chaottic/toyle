@@ -3,8 +3,6 @@ plugins {
 	`maven-publish`
 }
 
-version = "1.0-SNAPSHOT"
-
 gradlePlugin {
 	plugins {
 		create("toyle") {

@@ -3,9 +3,10 @@ package com.chaottic.toyle.parser
 import com.chaottic.toyle.ToyleLanguage
 import com.chaottic.toyle.file.ToyleFile
 import com.chaottic.toyle.highlighter.ToyleFlexAdapter
-import com.intellij.lang.*
+import com.intellij.lang.ASTNode
+import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.project.Project
-import com.intellij.psi.*
+import com.intellij.psi.FileViewProvider
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 
@@ -28,6 +29,6 @@ class ToyleParserDefinition : ParserDefinition {
 	companion object {
 		val fileElementType = IFileElementType(ToyleLanguage.language)
 
-		val tokenSet = TokenSet.create(ToyleTypes.COMMENT)
+		val tokenSet = TokenSet.create(ToyleTypes.LINE_COMMENT)
 	}
 }

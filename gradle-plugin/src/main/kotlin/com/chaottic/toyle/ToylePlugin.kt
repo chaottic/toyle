@@ -12,13 +12,12 @@ class ToylePlugin : Plugin<Project> {
 		target.pluginManager.apply(JavaPlugin::class.java)
 
 		target.extensions.getByType(JavaPluginExtension::class.java).sourceSets.all {
-			target.objects.sourceDirectorySet("toyle", "Toyle").apply {
-				srcDir("src/${it.name}/toyle")
+
+			target.objects.sourceDirectorySet("toyle", "Toyle").srcDir("src/${it.name}/toyle").apply {
 				filter.include("**/*.toyle")
 
-				it.allSource.source(this)
-
 				it.extensions.add("toyle", this)
+				it.allSource.source(this)
 			}
 		}
 

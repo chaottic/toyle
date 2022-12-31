@@ -1,0 +1,14 @@
+{
+    parserClass="com.chaottic.toyle.parser.ToyleParser"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+    psiClassPrefix="Toyle"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.chaottic.toyle.parser"
+    elementTypeHolderClass="com.chaottic.toyle.parser.ToyleTypes"
+    elementTypeClass="com.chaottic.toyle.parser.ToyleElementType"
+    tokenTypeClass="com.chaottic.toyle.parser.ToyleTokenType"
+}
+
+file ::= COMMENT*
+
+property ::= COMMENT*

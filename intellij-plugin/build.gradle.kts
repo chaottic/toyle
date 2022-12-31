@@ -5,3 +5,5 @@ plugins {
 intellij {
 	version.set("2022.3.1")
 }
+
+sourceSets.main.get().java.srcDir("src/main/gen")

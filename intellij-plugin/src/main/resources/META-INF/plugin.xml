@@ -3,6 +3,8 @@
     <vendor>Toyle</vendor>
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="Toyle" implementationClass="com.chaottic.toyle.file.ToyleFileType" fieldName="type" language="toyle" extensions="toyle"/>
+        <lang.syntaxHighlighterFactory language="toyle" implementationClass="com.chaottic.toyle.highlighter.ToyleSyntaxHighlighterFactory"/>
+        <lang.parserDefinition language="toyle" implementationClass="com.chaottic.toyle.parser.ToyleParserDefinition"/>
     </extensions>
     <actions>
         <action id="com.chaottic.toyle.file.ToyleNewFileAction" class="com.chaottic.toyle.file.ToyleNewFileAction" text="Toyle File">

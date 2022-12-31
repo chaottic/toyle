@@ -1,5 +1,6 @@
 package com.chaottic.toyle
 
+import com.chaottic.toyle.compile.ToyleCompile
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
@@ -20,5 +21,9 @@ class ToylePlugin : Plugin<Project> {
 				it.extensions.add("toyle", this)
 			}
 		}
+
+		target.extensions.create("toyle", ToyleExtension::class.java)
+
+		target.tasks.create("compileToyle", ToyleCompile::class.java)
 	}
 }

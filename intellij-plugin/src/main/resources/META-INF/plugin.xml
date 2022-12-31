@@ -1,0 +1,12 @@
+<idea-plugin>
+    <id>com.chaottic.toyle</id>
+    <vendor>Toyle</vendor>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Toyle" implementationClass="com.chaottic.toyle.file.ToyleFileType" fieldName="type" language="toyle" extensions="toyle"/>
+    </extensions>
+    <actions>
+        <action id="com.chaottic.toyle.file.ToyleNewFileAction" class="com.chaottic.toyle.file.ToyleNewFileAction" text="Toyle File">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>

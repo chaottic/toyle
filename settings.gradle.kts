@@ -1,3 +1,4 @@
 
 rootProject.name = "toyle"
-include("gradle-plugin")
+
+include("gradle-plugin", "intellij-plugin")

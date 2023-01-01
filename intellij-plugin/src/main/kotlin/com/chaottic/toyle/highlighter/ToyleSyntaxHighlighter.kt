@@ -14,7 +14,15 @@ class ToyleSyntaxHighlighter : SyntaxHighlighterBase() {
 		if (tokenType!! == ToyleTypes.LINE_COMMENT) {
 			return lineComment
 		}
-		if (tokenType == ToyleTypes.PACKAGE || tokenType == ToyleTypes.IMPORT || tokenType == ToyleTypes.CLASS || tokenType == ToyleTypes.INHERIT || tokenType == ToyleTypes.CONST || tokenType == ToyleTypes.VAR) {
+		if (
+			tokenType == ToyleTypes.PACKAGE ||
+			tokenType == ToyleTypes.IMPORT ||
+			tokenType == ToyleTypes.CLASS ||
+			tokenType == ToyleTypes.INHERIT ||
+			tokenType == ToyleTypes.CONST ||
+			tokenType == ToyleTypes.VAR ||
+			tokenType == ToyleTypes.OVERRIDE
+			) {
 			return keyWord
 		}
 		if (tokenType == ToyleTypes.NUMBER) {

@@ -20,6 +20,7 @@ public interface ToyleTypes {
   IElementType LINE_COMMENT = new ToyleTokenType("LINE_COMMENT");
   IElementType NUMBER = new ToyleTokenType("NUMBER");
   IElementType OPEN_SCOPE = new ToyleTokenType("OPEN_SCOPE");
+  IElementType OVERRIDE = new ToyleTokenType("OVERRIDE");
   IElementType PACKAGE = new ToyleTokenType("PACKAGE");
   IElementType STRING_LITERAL = new ToyleTokenType("STRING_LITERAL");
   IElementType VAR = new ToyleTokenType("VAR");

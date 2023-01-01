@@ -41,7 +41,10 @@ ANY_WORD=\ [^ \r\n]+
       "{" { yybegin(WAITING_SCOPE); return ToyleTypes.OPEN_SCOPE; }
 }
 <WAITING_IDENTIFIER> {ANY_WORD} {  yybegin(YYINITIAL); return ToyleTypes.IDENTIFIER; }
-<WAITING_SCOPE> "}" {  yybegin(YYINITIAL); return ToyleTypes.CLOSE_SCOPE; }
+<WAITING_SCOPE> {
+      "}" {  yybegin(YYINITIAL); return ToyleTypes.CLOSE_SCOPE; }
+      "override" {  yybegin(WAITING_SCOPE); return ToyleTypes.OVERRIDE; }
+}
 <WAITING_GLOBAL_NAME> {ANY_WORD} {  yybegin(YYINITIAL); return ToyleTypes.GLOBAL_NAME; }
 
 [^]                                                         { return TokenType.BAD_CHARACTER; }

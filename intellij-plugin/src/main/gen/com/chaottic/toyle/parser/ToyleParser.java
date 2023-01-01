@@ -36,7 +36,7 @@ public class ToyleParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (INHERIT IDENTIFIER)? (OPEN_SCOPE CLOSE_SCOPE)?
+  // IDENTIFIER (INHERIT IDENTIFIER)? (OPEN_SCOPE (OVERRIDE)* CLOSE_SCOPE)?
   public static boolean class_$(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "class_$")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -66,21 +66,34 @@ public class ToyleParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (OPEN_SCOPE CLOSE_SCOPE)?
+  // (OPEN_SCOPE (OVERRIDE)* CLOSE_SCOPE)?
   private static boolean class_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "class_2")) return false;
     class_2_0(b, l + 1);
     return true;
   }
 
-  // OPEN_SCOPE CLOSE_SCOPE
+  // OPEN_SCOPE (OVERRIDE)* CLOSE_SCOPE
   private static boolean class_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "class_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, OPEN_SCOPE, CLOSE_SCOPE);
+    r = consumeToken(b, OPEN_SCOPE);
+    r = r && class_2_0_1(b, l + 1);
+    r = r && consumeToken(b, CLOSE_SCOPE);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // (OVERRIDE)*
+  private static boolean class_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_2_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, OVERRIDE)) break;
+      if (!empty_element_parsed_guard_(b, "class_2_0_1", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */

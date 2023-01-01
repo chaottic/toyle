@@ -2,8 +2,8 @@
 Programming language for the Java Virtual Machine.
 
 
-### Syntax Example
-The syntax designed with ligatures in mind.
+### Syntax Mockup
+The syntax is designed with ligatures in mind.
 ```java
 package net.example.Example
         
@@ -11,7 +11,7 @@ import net.example.special.SpecialObject
         
 // Outside of a class is global.        
 
-// The "const" keyword can only be used for primitives, and inferred is the preferred type declaration.
+// The "const" keyword can only be used for immutable primitives, and inferred is the preferred type declaration.
 const a = 0        
 const b = 0
 const c = 0
@@ -52,17 +52,56 @@ class MyObject inherit SpecialObject {
     }
 }
 
+// Declaring an enum.
+enum Colour {
+    red
+    orange 
+    yellow
+    green
+    blue
+    purple
+    pink
+}
+
+func iterate() {
+    // Prints the name of each colour. Expanded in a code block.
+    Colour.each {
+        print(it)
+    }
+    
+    // Get the first Colour.
+    var red = Colour[0]
+}
+
 // Access blocks are an alternative way to prevent the overuse of "private".
 
 private const a = 0
 private const b = 0
 private const c = 0
 
-// This the above can be shortened to:
+// The above can be shortened to:
 private {
     const a = 0    
     const b = 0
     const c = 0
+}
+```
+
+#### Self included Mathematics
+This is intended for the use of working with e.g. Vulkan and GLSL. But can be used for many other purposes.
+```java
+package net.example.Math
+
+func example() {
+    var x = sigmoid(...)
+    var y = pow(...)
+    var z = min(x, y)
+        
+    // Matrices. Matrices are immutable.
+    var identity = mat4x4<float>()
+        
+    // "ortho" function returning a new matrix object.
+    var orthographic = identity.ortho(...)
 }
 ```
 

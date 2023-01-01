@@ -11,6 +11,7 @@ public interface ToyleTypes {
   IElementType PROPERTY = new ToyleElementType("PROPERTY");
 
   IElementType IDENTIFIER = new ToyleTokenType("IDENTIFIER");
+  IElementType IMPORT = new ToyleTokenType("IMPORT");
   IElementType LINE_COMMENT = new ToyleTokenType("LINE_COMMENT");
   IElementType PACKAGE = new ToyleTokenType("PACKAGE");
 

@@ -7,8 +7,9 @@
     elementTypeHolderClass="com.chaottic.toyle.parser.ToyleTypes"
     elementTypeClass="com.chaottic.toyle.parser.ToyleElementType"
     tokenTypeClass="com.chaottic.toyle.parser.ToyleTokenType"
+    psiImplUtilClass="com.chaottic.toyle.ToylePsiUtil"
 }
 
-file ::= PACKAGE IDENTIFIER LINE_COMMENT*
+file ::= PACKAGE IDENTIFIER (IMPORT IDENTIFIER)* LINE_COMMENT*
 
 property ::= LINE_COMMENT*

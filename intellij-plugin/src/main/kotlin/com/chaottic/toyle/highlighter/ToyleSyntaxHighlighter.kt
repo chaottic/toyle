@@ -14,7 +14,7 @@ class ToyleSyntaxHighlighter : SyntaxHighlighterBase() {
 		if (tokenType!! == ToyleTypes.LINE_COMMENT) {
 			return lineComment
 		}
-		if (tokenType!! == ToyleTypes.PACKAGE) {
+		if (tokenType == ToyleTypes.PACKAGE || tokenType == ToyleTypes.IMPORT) {
 			return keyWord
 		}
 

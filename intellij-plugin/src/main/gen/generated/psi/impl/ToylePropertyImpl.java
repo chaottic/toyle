@@ -10,6 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.chaottic.toyle.parser.ToyleTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.chaottic.toyle.parser.*;
+import com.chaottic.toyle.ToylePsiUtil;
 
 public class ToylePropertyImpl extends ASTWrapperPsiElement implements ToyleProperty {
 

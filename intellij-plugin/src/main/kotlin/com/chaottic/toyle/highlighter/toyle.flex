@@ -26,8 +26,11 @@ IDENTIFIER=\ [^ \r\n]+
 
 %%
 
-<YYINITIAL> {END_OF_LINE_COMMENT}  { yybegin(YYINITIAL); return ToyleTypes.LINE_COMMENT; }
-<YYINITIAL> "package" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.PACKAGE;  }
+<YYINITIAL> {
+      {END_OF_LINE_COMMENT}  { yybegin(YYINITIAL); return ToyleTypes.LINE_COMMENT; }
+      "package" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.PACKAGE;  }
+      "import" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.IMPORT;  }
+}
 <WAITING_IDENTIFIER> {IDENTIFIER} {  yybegin(YYINITIAL); return ToyleTypes.IDENTIFIER; }
 
 [^]                                                         { return TokenType.BAD_CHARACTER; }

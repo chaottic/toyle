@@ -5,7 +5,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.util.IconLoader
 
 class ToyleFileType : LanguageFileType(ToyleLanguage.language) {
-	private val icon = IconLoader.getIcon("toyle.svg", ToyleFileType::class.java)
+	private val icon = IconLoader.getIcon("toyleLanguage.svg", ToyleFileType::class.java)
 
 	override fun getName() = "Toyle"
 

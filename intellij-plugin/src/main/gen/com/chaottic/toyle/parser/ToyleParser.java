@@ -36,7 +36,7 @@ public class ToyleParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PACKAGE IDENTIFIER LINE_COMMENT*
+  // PACKAGE IDENTIFIER (IMPORT IDENTIFIER)* LINE_COMMENT*
   static boolean file(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file")) return false;
     if (!nextTokenIs(b, PACKAGE)) return false;
@@ -44,17 +44,39 @@ public class ToyleParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, PACKAGE, IDENTIFIER);
     r = r && file_2(b, l + 1);
+    r = r && file_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (IMPORT IDENTIFIER)*
+  private static boolean file_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!file_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "file_2", c)) break;
+    }
+    return true;
+  }
+
+  // IMPORT IDENTIFIER
+  private static boolean file_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, IMPORT, IDENTIFIER);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // LINE_COMMENT*
-  private static boolean file_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "file_2")) return false;
+  private static boolean file_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_3")) return false;
     while (true) {
       int c = current_position_(b);
       if (!consumeToken(b, LINE_COMMENT)) break;
-      if (!empty_element_parsed_guard_(b, "file_2", c)) break;
+      if (!empty_element_parsed_guard_(b, "file_3", c)) break;
     }
     return true;
   }

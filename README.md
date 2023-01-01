@@ -3,7 +3,7 @@ Programming language for the Java Virtual Machine.
 
 ### Toying with
 Clone the repository and then execute
-``gradle :gradle-plugin:publishToMavenLocal``
+``gradle gradle-plugin:publishToMavenLocal``
 
 and then
 ``gradle intellij-plugin:runIde``

@@ -19,10 +19,12 @@ CRLF=\R
 FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
 VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
 END_OF_LINE_COMMENT=("//")[^\r\n]*
-IDENTIFIER=\ [^ \r\n]+
+ANY_WORD=\ [^ \r\n]+
 
 %state WAITING_VALUE
 %state WAITING_IDENTIFIER
+%state WAITING_SCOPE
+%state WAITING_GLOBAL_NAME
 
 %%
 
@@ -30,7 +32,16 @@ IDENTIFIER=\ [^ \r\n]+
       {END_OF_LINE_COMMENT}  { yybegin(YYINITIAL); return ToyleTypes.LINE_COMMENT; }
       "package" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.PACKAGE;  }
       "import" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.IMPORT;  }
+      "class" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.CLASS; }
+      "inherit" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.INHERIT; }
+      "const" { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.CONST; }
+      "var" { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.VAR; }
+      [.*0-9]+ { yybegin(YYINITIAL); return ToyleTypes.NUMBER; }
+      \"([^\r\n]*)\" { yybegin(YYINITIAL); return ToyleTypes.STRING_LITERAL; }
+      "{" { yybegin(WAITING_SCOPE); return ToyleTypes.OPEN_SCOPE; }
 }
-<WAITING_IDENTIFIER> {IDENTIFIER} {  yybegin(YYINITIAL); return ToyleTypes.IDENTIFIER; }
+<WAITING_IDENTIFIER> {ANY_WORD} {  yybegin(YYINITIAL); return ToyleTypes.IDENTIFIER; }
+<WAITING_SCOPE> "}" {  yybegin(YYINITIAL); return ToyleTypes.CLOSE_SCOPE; }
+<WAITING_GLOBAL_NAME> {ANY_WORD} {  yybegin(YYINITIAL); return ToyleTypes.GLOBAL_NAME; }
 
 [^]                                                         { return TokenType.BAD_CHARACTER; }

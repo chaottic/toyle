@@ -25,6 +25,8 @@ class ToyleFlexLexer implements FlexLexer {
   public static final int YYINITIAL = 0;
   public static final int WAITING_VALUE = 2;
   public static final int WAITING_IDENTIFIER = 4;
+  public static final int WAITING_SCOPE = 6;
+  public static final int WAITING_GLOBAL_NAME = 8;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -33,7 +35,7 @@ class ToyleFlexLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2, 2
+     0,  0,  1,  1,  2,  2,  3,  3,  4, 4
   };
 
   /** 
@@ -55,8 +57,9 @@ class ToyleFlexLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 256 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\12\0\1\1\2\0\1\1\22\0\1\2\16\0\1\3\61\0\1\5\1\0\1\6\1\0\1\11\1\0\1\10\1\0"+
-    "\1\12\1\0\1\7\1\0\1\13\1\0\1\14\1\4\1\0\1\15\1\0\1\16\213\0");
+    "\12\0\1\1\2\0\1\1\22\0\1\2\1\0\1\25\7\0\1\24\3\0\1\24\1\3\12\24\47\0\1\5\1"+
+    "\0\1\6\1\0\1\11\1\0\1\10\1\22\1\12\1\0\1\7\1\17\1\13\1\21\1\14\1\4\1\0\1\15"+
+    "\1\20\1\16\1\0\1\23\4\0\1\26\1\0\1\27\202\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -64,10 +67,12 @@ class ToyleFlexLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\3\0\5\1\1\2\2\0\1\3\7\0\1\4\1\5";
+    "\5\0\6\1\1\2\1\1\1\3\1\1\1\4\1\1"+
+    "\1\5\7\0\1\6\1\7\1\10\5\0\1\11\6\0"+
+    "\1\12\1\13\3\0\1\14\1\0\1\15\1\16";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[21];
+    int [] result = new int[49];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -92,12 +97,16 @@ class ToyleFlexLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\17\0\36\0\55\0\74\0\113\0\132\0\151"+
-    "\0\170\0\207\0\226\0\151\0\245\0\264\0\303\0\322"+
-    "\0\341\0\360\0\377\0\55\0\55";
+    "\0\0\0\30\0\60\0\110\0\140\0\170\0\220\0\250"+
+    "\0\300\0\330\0\360\0\u0108\0\u0120\0\170\0\u0138\0\170"+
+    "\0\u0150\0\u0168\0\u0180\0\u0198\0\u01b0\0\u01c8\0\u01e0\0\u01f8"+
+    "\0\u0120\0\u0120\0\u0138\0\u0150\0\u0210\0\u0228\0\u0240\0\u0258"+
+    "\0\u0270\0\170\0\u0288\0\u02a0\0\u02b8\0\u02d0\0\u02e8\0\u0300"+
+    "\0\170\0\170\0\u0318\0\u0330\0\u0348\0\170\0\u0360\0\170"+
+    "\0\170";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[21];
+    int [] result = new int[49];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -120,14 +129,21 @@ class ToyleFlexLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\3\4\1\5\1\6\5\4\1\7\25\4\1\10\14\4"+
-    "\22\0\1\11\20\0\1\12\24\0\1\13\3\0\1\14"+
-    "\2\0\14\14\1\11\1\0\15\11\6\0\1\15\14\0"+
-    "\1\16\21\0\1\17\23\0\1\20\7\0\1\21\26\0"+
-    "\1\22\11\0\1\23\24\0\1\24\11\0\1\25\5\0";
+    "\3\6\1\7\1\10\1\6\1\11\3\6\1\12\10\6"+
+    "\1\13\1\14\1\15\1\16\33\6\1\17\54\6\1\20"+
+    "\2\6\1\21\25\6\33\0\1\22\31\0\1\23\36\0"+
+    "\1\24\2\0\1\25\23\0\1\26\5\0\1\27\13\0"+
+    "\1\30\46\0\1\14\3\0\1\31\1\0\23\31\1\32"+
+    "\2\31\1\33\2\0\25\33\1\34\2\0\25\34\1\22"+
+    "\1\0\26\22\6\0\1\35\42\0\1\36\13\0\1\37"+
+    "\26\0\1\40\45\0\1\41\22\0\1\42\21\0\1\43"+
+    "\40\0\1\44\27\0\1\45\23\0\1\46\24\0\1\47"+
+    "\23\0\1\50\40\0\1\51\31\0\1\52\24\0\1\53"+
+    "\27\0\1\54\22\0\1\55\35\0\1\56\23\0\1\57"+
+    "\26\0\1\60\34\0\1\61\11\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[270];
+    int [] result = new int[888];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -165,10 +181,12 @@ class ToyleFlexLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\3\0\1\11\5\1\2\0\1\1\7\0\2\11";
+    "\5\0\1\11\7\1\1\11\1\1\1\11\2\1\7\0"+
+    "\3\1\5\0\1\11\6\0\2\11\3\0\1\11\1\0"+
+    "\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[21];
+    int [] result = new int[49];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -485,27 +503,72 @@ class ToyleFlexLexer implements FlexLexer {
             { return TokenType.BAD_CHARACTER;
             } 
             // fall through
-          case 6: break;
+          case 15: break;
           case 2: 
+            { yybegin(YYINITIAL); return ToyleTypes.NUMBER;
+            } 
+            // fall through
+          case 16: break;
+          case 3: 
+            { yybegin(WAITING_SCOPE); return ToyleTypes.OPEN_SCOPE;
+            } 
+            // fall through
+          case 17: break;
+          case 4: 
+            { yybegin(YYINITIAL); return ToyleTypes.CLOSE_SCOPE;
+            } 
+            // fall through
+          case 18: break;
+          case 5: 
             { yybegin(YYINITIAL); return ToyleTypes.LINE_COMMENT;
             } 
             // fall through
-          case 7: break;
-          case 3: 
+          case 19: break;
+          case 6: 
+            { yybegin(YYINITIAL); return ToyleTypes.STRING_LITERAL;
+            } 
+            // fall through
+          case 20: break;
+          case 7: 
             { yybegin(YYINITIAL); return ToyleTypes.IDENTIFIER;
             } 
             // fall through
-          case 8: break;
-          case 4: 
+          case 21: break;
+          case 8: 
+            { yybegin(YYINITIAL); return ToyleTypes.GLOBAL_NAME;
+            } 
+            // fall through
+          case 22: break;
+          case 9: 
+            { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.VAR;
+            } 
+            // fall through
+          case 23: break;
+          case 10: 
+            { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.CONST;
+            } 
+            // fall through
+          case 24: break;
+          case 11: 
+            { yybegin(WAITING_IDENTIFIER); return ToyleTypes.CLASS;
+            } 
+            // fall through
+          case 25: break;
+          case 12: 
             { yybegin(WAITING_IDENTIFIER); return ToyleTypes.IMPORT;
             } 
             // fall through
-          case 9: break;
-          case 5: 
+          case 26: break;
+          case 13: 
             { yybegin(WAITING_IDENTIFIER); return ToyleTypes.PACKAGE;
             } 
             // fall through
-          case 10: break;
+          case 27: break;
+          case 14: 
+            { yybegin(WAITING_IDENTIFIER); return ToyleTypes.INHERIT;
+            } 
+            // fall through
+          case 28: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

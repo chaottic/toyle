@@ -36,7 +36,57 @@ public class ToyleParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PACKAGE IDENTIFIER (IMPORT IDENTIFIER)* LINE_COMMENT*
+  // IDENTIFIER (INHERIT IDENTIFIER)? (OPEN_SCOPE CLOSE_SCOPE)?
+  public static boolean class_$(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_$")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && class_1(b, l + 1);
+    r = r && class_2(b, l + 1);
+    exit_section_(b, m, CLASS, r);
+    return r;
+  }
+
+  // (INHERIT IDENTIFIER)?
+  private static boolean class_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_1")) return false;
+    class_1_0(b, l + 1);
+    return true;
+  }
+
+  // INHERIT IDENTIFIER
+  private static boolean class_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, INHERIT, IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (OPEN_SCOPE CLOSE_SCOPE)?
+  private static boolean class_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_2")) return false;
+    class_2_0(b, l + 1);
+    return true;
+  }
+
+  // OPEN_SCOPE CLOSE_SCOPE
+  private static boolean class_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, OPEN_SCOPE, CLOSE_SCOPE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // PACKAGE IDENTIFIER (IMPORT IDENTIFIER)* class* (CONST|VAR GLOBAL_NAME)* LINE_COMMENT*
+  // NUMBER
+  // STRING_LITERAL
   static boolean file(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file")) return false;
     if (!nextTokenIs(b, PACKAGE)) return false;
@@ -45,6 +95,9 @@ public class ToyleParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 0, PACKAGE, IDENTIFIER);
     r = r && file_2(b, l + 1);
     r = r && file_3(b, l + 1);
+    r = r && file_4(b, l + 1);
+    r = r && file_5(b, l + 1);
+    r = r && consumeTokens(b, 0, NUMBER, STRING_LITERAL);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -70,13 +123,46 @@ public class ToyleParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LINE_COMMENT*
+  // class*
   private static boolean file_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file_3")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, LINE_COMMENT)) break;
+      if (!class_$(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "file_3", c)) break;
+    }
+    return true;
+  }
+
+  // (CONST|VAR GLOBAL_NAME)*
+  private static boolean file_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_4")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!file_4_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "file_4", c)) break;
+    }
+    return true;
+  }
+
+  // CONST|VAR GLOBAL_NAME
+  private static boolean file_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_4_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CONST);
+    if (!r) r = parseTokens(b, 0, VAR, GLOBAL_NAME);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_COMMENT*
+  private static boolean file_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_5")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_COMMENT)) break;
+      if (!empty_element_parsed_guard_(b, "file_5", c)) break;
     }
     return true;
   }

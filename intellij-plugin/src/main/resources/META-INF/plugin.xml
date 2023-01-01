@@ -5,7 +5,7 @@
         <fileType name="Toyle" implementationClass="com.chaottic.toyle.file.ToyleFileType" fieldName="type" language="toyle" extensions="toyle"/>
         <lang.syntaxHighlighterFactory language="toyle" implementationClass="com.chaottic.toyle.highlighter.ToyleSyntaxHighlighterFactory"/>
         <lang.parserDefinition language="toyle" implementationClass="com.chaottic.toyle.parser.ToyleParserDefinition"/>
-        <annotator language="JAVA" implementationClass="com.chaottic.toyle.ToyleAnnotator"/>
+        <annotator language="toyle" implementationClass="com.chaottic.toyle.ToyleAnnotator"/>
         <psi.referenceContributor language="JAVA" implementation="com.chaottic.toyle.reference.ToyleReferenceContributor"/>
     </extensions>
     <actions>

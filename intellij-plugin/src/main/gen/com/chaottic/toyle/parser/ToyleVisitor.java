@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class ToyleVisitor extends PsiElementVisitor {
 
+  public void visitClass(@NotNull ToyleClass o) {
+    visitPsiElement(o);
+  }
+
   public void visitProperty(@NotNull ToyleProperty o) {
     visitPsiElement(o);
   }

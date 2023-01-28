@@ -97,7 +97,7 @@ public class ToyleParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PACKAGE IDENTIFIER (IMPORT IDENTIFIER)* class* (CONST|VAR GLOBAL_NAME)* LINE_COMMENT*
+  // PACKAGE IDENTIFIER (IMPORT IDENTIFIER)* class* (CONST|VAR|LET GLOBAL_NAME)* LINE_COMMENT*
   // NUMBER
   // STRING_LITERAL
   static boolean file(PsiBuilder b, int l) {
@@ -147,7 +147,7 @@ public class ToyleParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (CONST|VAR GLOBAL_NAME)*
+  // (CONST|VAR|LET GLOBAL_NAME)*
   private static boolean file_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file_4")) return false;
     while (true) {
@@ -158,13 +158,14 @@ public class ToyleParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // CONST|VAR GLOBAL_NAME
+  // CONST|VAR|LET GLOBAL_NAME
   private static boolean file_4_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file_4_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, CONST);
-    if (!r) r = parseTokens(b, 0, VAR, GLOBAL_NAME);
+    if (!r) r = consumeToken(b, VAR);
+    if (!r) r = parseTokens(b, 0, LET, GLOBAL_NAME);
     exit_section_(b, m, null, r);
     return r;
   }

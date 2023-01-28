@@ -17,6 +17,7 @@ public interface ToyleTypes {
   IElementType IDENTIFIER = new ToyleTokenType("IDENTIFIER");
   IElementType IMPORT = new ToyleTokenType("IMPORT");
   IElementType INHERIT = new ToyleTokenType("INHERIT");
+  IElementType LET = new ToyleTokenType("LET");
   IElementType LINE_COMMENT = new ToyleTokenType("LINE_COMMENT");
   IElementType NUMBER = new ToyleTokenType("NUMBER");
   IElementType OPEN_SCOPE = new ToyleTokenType("OPEN_SCOPE");

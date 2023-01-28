@@ -21,6 +21,7 @@ class ToyleSyntaxHighlighter : SyntaxHighlighterBase() {
 			tokenType == ToyleTypes.INHERIT ||
 			tokenType == ToyleTypes.CONST ||
 			tokenType == ToyleTypes.VAR ||
+			tokenType == ToyleTypes.LET ||
 			tokenType == ToyleTypes.OVERRIDE
 			) {
 			return keyWord

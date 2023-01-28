@@ -23,7 +23,8 @@ ANY_WORD=\ [^ \r\n]+
 
 %state WAITING_VALUE
 %state WAITING_IDENTIFIER
-%state WAITING_SCOPE
+%state WAITING_CLASS_SCOPE
+%state WAITING_FUNCTION_SCOPE
 %state WAITING_GLOBAL_NAME
 
 %%
@@ -36,12 +37,13 @@ ANY_WORD=\ [^ \r\n]+
       "inherit" { yybegin(WAITING_IDENTIFIER); return ToyleTypes.INHERIT; }
       "const" { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.CONST; }
       "var" { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.VAR; }
+      "val" { yybegin(WAITING_GLOBAL_NAME); return ToyleTypes.LET; }
       [.*0-9]+ { yybegin(YYINITIAL); return ToyleTypes.NUMBER; }
       \"([^\r\n]*)\" { yybegin(YYINITIAL); return ToyleTypes.STRING_LITERAL; }
       "{" { yybegin(WAITING_SCOPE); return ToyleTypes.OPEN_SCOPE; }
 }
 <WAITING_IDENTIFIER> {ANY_WORD} {  yybegin(YYINITIAL); return ToyleTypes.IDENTIFIER; }
-<WAITING_SCOPE> {
+<WAITING_CLASS_SCOPE> {
       "}" {  yybegin(YYINITIAL); return ToyleTypes.CLOSE_SCOPE; }
       "override" {  yybegin(WAITING_SCOPE); return ToyleTypes.OVERRIDE; }
 }

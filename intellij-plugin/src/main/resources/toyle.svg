@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 16 16">
+  <polygon points="0,5 75,38 75,137 0,100" style="fill:#727272;" transform="scale(0.1) translate(0, 24)"/>
+  <polygon points="75,137 75,38 150,5 150,100" style="fill:#515151;" transform="scale(0.1) translate(0, 24)"/>
+  <polygon points="75,38 0,5 75,-25 150,5" style="fill:#FFFFFF;" transform="scale(0.1) translate(0, 24)"/>
+</svg>

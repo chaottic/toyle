@@ -11,20 +11,22 @@ class ToylePlugin : Plugin<Project> {
 	override fun apply(target: Project) {
 		target.pluginManager.apply(JavaPlugin::class.java)
 
-		target.extensions.getByType(JavaPluginExtension::class.java).sourceSets.all {
+		val compileTask = target.tasks.create("compileToyle", ToyleCompile::class.java)
 
-			target.objects.sourceDirectorySet("toyle", "Toyle").srcDir("src/${it.name}/toyle").apply {
-				filter.include("**/*.toyle")
+		val extensions = target.extensions
 
-				it.extensions.add("toyle", this)
+		extensions.getByType(JavaPluginExtension::class.java).sourceSets.all {
+			val sourceDirectorySet = target.objects.sourceDirectorySet("toyle", "Toyle")
 
-				// TODO: Not use allJava.
-				it.allJava.source(this)
-			}
+			sourceDirectorySet.srcDir("src/${it.name}/toyle")
+			sourceDirectorySet.filter.include("**/*.toyle")
+
+			it.extensions.add("toyle", sourceDirectorySet)
+			it.allSource.srcDirs(sourceDirectorySet)
+			it.allSource.source(sourceDirectorySet)
+			it.java.source(sourceDirectorySet)
+			it.compiledBy(compileTask)
 		}
-
-		target.extensions.create("toyle", ToyleExtension::class.java)
-
-		target.tasks.create("compileToyle", ToyleCompile::class.java)
+		extensions.create("toyle", ToyleExtension::class.java)
 	}
 }

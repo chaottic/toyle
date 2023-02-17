@@ -1,3 +1,3 @@
 package com.chaottic.toyle
 
-open class ToyleExtension {}
+open class ToyleExtension

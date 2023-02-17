@@ -1,5 +1,7 @@
 package com.chaottic.toyle.compile
 
-class DefaultToyleCompileSpecFactory : AbstractToyleCompileSpecFactory<DefaultToyleCompileSpec>() {
+import org.gradle.api.tasks.compile.CompileOptions
+
+class DefaultToyleCompileSpecFactory(compileOptions: CompileOptions) : AbstractToyleCompileSpecFactory<DefaultToyleCompileSpec>() {
 	override fun create() = DefaultToyleCompileSpec()
 }
